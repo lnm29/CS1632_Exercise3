@@ -23,7 +23,8 @@ public class LaboonCoin {
      */
     
     public String createBlock(String data, int prevHash, int nonce, int hash) {
-	return "TODO";
+	String block = data + '|' + String.format("%08x", prevHash) + '|' + String.format("%08x", nonce) + '|' + String.format("%08x", hash);	
+	return block;
     }
 
     /**
