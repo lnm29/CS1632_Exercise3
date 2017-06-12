@@ -132,7 +132,8 @@ public class LaboonCoin {
 	    // System.out.print("Trying: " + toTry + ".. ");
 	    
 	    hashVal = hash(toTry);
-	    System.out.println("hash: " + String.format("%08x", hashVal));
+	    //Causes unecessary loop that doesnt match output provided in project description
+	    //System.out.println("hash: " + String.format("%08x", hashVal));
 	    if (validHash(difficulty, hashVal)) {
 		foundNonce = true;
 	    } else {
@@ -189,7 +190,7 @@ public class LaboonCoin {
      * If this cannot be read or parsed, it will default to a difficulty
      * of 1.
      * @param args[] - command line arguments
-     *
+     */
     
     public static void main(String[] args) {
 	int difficulty = 3;
@@ -206,16 +207,5 @@ public class LaboonCoin {
 	}
 	LaboonCoin lc = new LaboonCoin();
 	lc.run(difficulty);
-    }*/
-	
-	public static void main(String[] args){	
-		LaboonCoin lb = new LaboonCoin();
-		lb.test();
-	}
-	
-	public void test(){
-		System.out.println(validHash(2, 1038730));
-		//System.out.println(getBlockChain());
-		validHash(2, 23423);
-	}
+    }
 }
