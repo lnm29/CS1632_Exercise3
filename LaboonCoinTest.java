@@ -14,11 +14,11 @@ import org.junit.*;
 *	Method				# of tests		Status
 *	createBlock()		3 ?				In Progress
 *	getBlockChain()		2 ?				In Progress
-*	hash()				2				In Progress
+*	hash()				3				Done
 *	validHash			3				Done
 *	
-*	Total				10
-*	Needed				2
+*	Total				11
+*	Needed				1
 */
 public class LaboonCoinTest {
 
@@ -32,16 +32,16 @@ public class LaboonCoinTest {
 	
     	//	Assert that creating a new LaboonCoin instance
     	//	does not return a null reference
-    	@Test
-    	public void testLaboonCoinExists() {
+    @Test
+    public void testLaboonCoinExists() {
 		assertNotNull(l);	
 	}
     
 	//	Assert that the program does not crash when
 	//	asked to print an empty blockchain
 	@Test
-	public void testNullPrint(){
-		l.getBlockChain();		
+	public void testEmptyPrint(){
+		assertEquals(l.getBlockChain(), "");
 	}
 	
 	//	Tests the happy path of the hash function
@@ -59,6 +59,7 @@ public class LaboonCoinTest {
 		assertEquals(l.hash(""), 10000000);
 	}
 	
+	//	Tests corner case of very long hash
 	@Test
 	public void testLongHash(){
 		assertEquals(l.hash("Did you ever hear the tragedy of Darth Plagueis the wise"), -1751869620);
