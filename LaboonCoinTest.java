@@ -46,11 +46,9 @@ public class LaboonCoinTest {
 	
 	//	Tests the happy path of the hash function
 	@Test
-	public void testHash(){
-		int hash1 = l.hash("boo");
-		int hash2 = l.hash("quock");
-		assertEquals(hash1, 1428150834);
-		assertEquals(hash2, 2034739681);
+	public void testHappyHash(){
+		assertEquals(l.hash("boo"), 1428150834);
+		assertEquals(l.hash("quock"), 2034739681);
 	}
 	
 	//	Tests corner case of empty hash
@@ -59,6 +57,11 @@ public class LaboonCoinTest {
 	@Test
 	public void testEmptyHash(){
 		assertEquals(l.hash(""), 10000000);
+	}
+	
+	@Test
+	public void testLongHash(){
+		assertEquals(l.hash("Did you ever hear the tragedy of Darth Plagueis the wise"), -1751869620);
 	}
 	
 	//	Tests happy path of variables with the exact number
@@ -87,9 +90,11 @@ public class LaboonCoinTest {
 		assertFalse(l.validHash(3, 16619695));
 		assertFalse(l.validHash(7, 212));
 	}
-	
+
+	//	Extra test, written in error
 	//	Tests for valid nonce cases based off
 	//	expected deterministic nonce values.
+	@Ignore("Extra")
 	@Test
 	public void testNonce(){
 		assertEquals(l.mine("boo", 738238, 3), 1441);
@@ -106,27 +111,35 @@ public class LaboonCoinTest {
 		assertEquals("Johnny gave Ustes $50" + '\n' + "Krombopulos gave Michael $1000" + '\n'  + "Jimmy gave Pitt $30000" + '\n', l.getBlockChain());
 	}
 	
+	/*
+	*	I have changed the following methods to @ignore so that i can start testing
+	*	When you finish writing them please just change them back to @test
+	*/
+	
 	//	Tests if hash has zero 0 in front, if so invalid
+	@Ignore("In Progress")
 	@Test
-	public void testInvalidZero{
+	public void testInvalidZero(){
 		l.createBlock("Johnny gave Ustes $50", 0343243, 0212312, 0423432);
 		l.getBlockChain();
-		assertEquals();
+		//assertEquals();
 	}
 	
 	//	Tests if hash has 1 0 in front, if so invalid 
+	@Ignore("In Progress")
 	@Test
-	public void testInvalidMultZeros{
+	public void testInvalidMultZeros(){
 		l.createBlock("Johnny gave Ustes $50", 0043243, 0012312, 0023432);
 		l.getBlockChain();
-		assertEquals();
+		//assertEquals();
 	}
 	
 	//	Tests if hash has 3 or more in front, if so valid
+	@Ignore("In Progress")
 	@Test
-	public void testValidZeros{
+	public void testValidZeros(){
 		l.createBlock("Johnny gave Ustes $50", 0000043, 0000312, 0003432);
 		l.getBlockChain();
-		assertEquals();
+		//assertEquals();
 	}
 }
