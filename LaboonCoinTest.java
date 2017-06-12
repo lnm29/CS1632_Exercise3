@@ -4,13 +4,79 @@ import org.junit.*;
 
 public class LaboonCoinTest {
 
-    // Assert that creating a new LaboonCoin instance
-    // does not return a null reference
-    @Test
-    public void testLaboonCoinExists() {
-		LaboonCoin l = new LaboonCoin();
-		assertNull(l);	
-    }
+	//	Creates an instance of LaboonCoin
+	//	for testing
+	@Before
+	public void init(){
+		LaboonCoin l = new LaboonCoin();		
+	}
+    	// Assert that creating a new LaboonCoin instance
+    	// does not return a null reference
+    	@Test
+    	public void testLaboonCoinExists() {
+		assertNotNull(l);	
+	}
+    
+	//Assert that the program does not crash when
+	//asked to print an empty blockchain
+	@Test
+	public void testNullPrint(){
+		l.getBlockChain();		
+	}
+	
+	//Tests the happy path of a nonempty blockchain
+	@Test
+	public void testHappyBlockPrint(){
+		String expected = "Block 1 , Block 2 , Block 3.";
+		l.blockchain.add("Block 1 , ");
+		l.blockchain.add("Block 2 , ");
+		l.blockchain.add("Block 3.");
+		assertEquals(expected, l.getBlockChain());
+	}
+	
+	//Tests the happy path of the hash function
+	@Test
+	public void testHash(){
+		int hash1 = l.hash("boo");
+		int hash2 = l.hash("quock");
+		int hash3 = l.hash("loop");
+		assertEquals(hash1, 1428150834);
+		assertEquals(hash2, 2034739681);
+		assertEquals(hash3, 3248649904);
+	}
+	
+	@Test
+	public void testEmptyHash(){
+		assertEquals(l.hash(""), 10000000);
+	}
+	
+	//	Tests happy path of variables with the exact number
+	//	of zeros in hex as difficulty
+	@Test
+	public void testEqualDifficulty(){
+		assertTrue(l.validHash(3, 1038730));
+		assertTrue(l.validHash(2, 16619695));
+		assertTrue(l.validHash(6, 212));
+	}
+	
+	@Test
+	public void testLessDifficulty(){
+		assertTrue(l.validHash(2, 1038730));
+		assertTrue(l.validHash(1, 16619695));
+		assertTrue(l.validHash(5, 212));
+	}
+	
+	@Test
+	public void testMoreDifficulty(){
+		assertFalse(l.validHash(4, 1038730));
+		assertFalse(l.validHash(3, 16619695));
+		assertFalse(l.validHash(7, 212));
+	}
+	
+	@Test
+	public void testNonce(){
+		l.mine("hizzards");	
+	}
     
 	//Assert that the program does not crash when
 	//asked to print an empty blockchain
