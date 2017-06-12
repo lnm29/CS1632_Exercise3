@@ -3,9 +3,11 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 /*
-*	JUST AS A NOTE:
+*	JUST SOME NOTES:
 *
-*	Ideally, each test should test exactly one method.
+*	I submitted the link via email.
+*
+*	Also, ideally, each test should test exactly one method.
 *	Each method needs at least 3 tests
 *	I accidently wrote one for mine(). Im just gonna leave it at this point.
 *
