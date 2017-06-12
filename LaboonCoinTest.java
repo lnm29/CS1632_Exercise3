@@ -12,8 +12,8 @@ import org.junit.*;
 *	Heres what we have so far:
 *
 *	Method				# of tests		Status
-*	createBlock()		3 ?				In Progress
-*	getBlockChain()		2 ?				In Progress
+*	createBlock()			3 ?				In Progress
+*	getBlockChain()			2 ?				In Progress
 *	hash()				2				In Progress
 *	validHash			3				Done
 *	
