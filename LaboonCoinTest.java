@@ -10,11 +10,12 @@ import org.junit.*;
 */
 public class LaboonCoinTest {
 
+	LaboonCoin l = null;
 	//	Creates an instance of LaboonCoin
 	//	for testing
 	@Before
 	public void init(){
-		LaboonCoin l = new LaboonCoin();		
+		l = new LaboonCoin();		
 	}
     	// Assert that creating a new LaboonCoin instance
     	// does not return a null reference
@@ -30,25 +31,13 @@ public class LaboonCoinTest {
 		l.getBlockChain();		
 	}
 	
-	//Tests the happy path of a nonempty blockchain
-	@Test
-	public void testHappyBlockPrint(){
-		String expected = "Block 1 , Block 2 , Block 3.";
-		l.blockchain.add("Block 1 , ");
-		l.blockchain.add("Block 2 , ");
-		l.blockchain.add("Block 3.");
-		assertEquals(expected, l.getBlockChain());
-	}
-	
 	//Tests the happy path of the hash function
 	@Test
 	public void testHash(){
 		int hash1 = l.hash("boo");
 		int hash2 = l.hash("quock");
-		int hash3 = l.hash("loop");
 		assertEquals(hash1, 1428150834);
 		assertEquals(hash2, 2034739681);
-		assertEquals(hash3, 3248649904);
 	}
 	
 	@Test
@@ -81,32 +70,30 @@ public class LaboonCoinTest {
 	
 	@Test
 	public void testNonce(){
-		l.mine("hizzards");	
+		assertEquals(l.mine("boo", 738238, 3), 1441);
+		assertEquals(l.mine("quock", 1005884, 3), 553);
+		assertEquals(l.mine("mars", 589727, 3), 1299);
 	}
     
 	//Assert that the program does not crash when
 	//asked to print an empty blockchain
 	@Test
 	public void testNullPrint(){
-		LaboonCoin l = new LaboonCoin();
 		l.getBlockChain();		
 	}
 	
 	//Tests the happy path of a nonempty blockchain
 	@Test
 	public void testHappyBlockPrint(){
-		LaboonCoin l = new LaboonCoin();
-		l.createBlock("Johnny gave Ustes $50", 2343243, 1212312, 3423432);
-		l.createBlock("Krombopulos gave Michael $1000", 2243324,34311888, 834849);
-		l.getBlockChain();
-		String Expected = "Johnny "
-		assertEquals()
+		l.blockchain.add("Johnny gave Ustes $50");
+		l.blockchain.add("Krombopulos gave Michael $1000");
+		l.blockchain.add("Jimmy gave Pitt $30000");
+		assertEquals("Johnny gave Ustes $50" + '\n' + "Krombopulos gave Michael $1000" + '\n'  + "Jimmy gave Pitt $30000" + '\n', l.getBlockChain());
 	}
 	
 	//Tests if hash has zero 0 in front, if so invalid
 	@Test
 	public void testInvalidZero{
-		LaboonCoin l = new LaboonCoin();
 		l.createBlock("Johnny gave Ustes $50", 0343243, 0212312, 0423432);
 		l.getBlockChain();
 		assertEquals();
@@ -115,7 +102,6 @@ public class LaboonCoinTest {
 	//Tests if hash has 1 0 in front, if so invalid 
 	@Test
 	public void testInvalidMultZeros{
-		LaboonCoin l = new LaboonCoin();
 		l.createBlock("Johnny gave Ustes $50", 0043243, 0012312, 0023432);
 		l.getBlockChain();
 		assertEquals();
@@ -124,7 +110,6 @@ public class LaboonCoinTest {
 	//Tests if hash has 3 or more in front, if so valid
 	@Test
 	public void testValidZeros{
-		LaboonCoin l = new LaboonCoin();
 		l.createBlock("Johnny gave Ustes $50", 0000043, 0000312, 0003432);
 		l.getBlockChain();
 		assertEquals();
