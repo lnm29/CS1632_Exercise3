@@ -4,7 +4,21 @@ import org.junit.*;
 
 /*
 *	JUST AS A NOTE:
+*
 *	Ideally, each test should test exactly one method.
+*	Each method needs at least 3 tests
+*	I accidently wrote one for mine(). Im just gonna leave it at this point.
+*
+*	Heres what we have so far:
+*
+*	Method				# of tests		Status
+*	createBlock()		3 ?				In Progress
+*	getBlockChain()		2 ?				In Progress
+*	hash()				2				In Progress
+*	validHash			3				Done
+*	
+*	Total				10
+*	Needed				2
 */
 public class LaboonCoinTest {
 
