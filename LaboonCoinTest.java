@@ -129,26 +129,29 @@ public class LaboonCoinTest {
 	@Ignore("In Progress")
 	@Test
 	public void testInvalidZero(){
-		l.createBlock("Johnny gave Ustes $50", 0343243, 0212312, 0423432);
+		
+		l.createBlock("Johnny", 343243, 212312, 423432);
 		l.getBlockChain();
-		//assertEquals();
+		assertEquals("Johnny" + '|' + "0343243" + '|' + "0212312" + '|' + "0413432", l.getBlockChain());
 	}
 	
-	//	Tests if hash has 1 0 in front, if so invalid 
-	@Ignore("In Progress")
+	//Tests if hash has 1 0 in front, if so invalid 
+	//padding two 0s
 	@Test
 	public void testInvalidMultZeros(){
-		l.createBlock("Johnny gave Ustes $50", 0043243, 0012312, 0023432);
+		l.createBlock("Johnny", 43243, 12312, 23432);
 		l.getBlockChain();
-		//assertEquals();
+		assertEquals("Johnny" + '|' + "0043243"  + '|' + "0012312" + '|' + "00423432", l.getBlockChain());
 	}
 	
-	//	Tests if hash has 3 or more in front, if so valid
-	@Ignore("In Progress")
+	//Tests if hash has 3 or more in front, if so valid
+	//padding multiple 0s
 	@Test
 	public void testValidZeros(){
-		l.createBlock("Johnny gave Ustes $50", 0000043, 0000312, 0003432);
+		
+		l.createBlock("Johnny", 43, 312, 3432);
 		l.getBlockChain();
-		//assertEquals();
+		assertEquals("Johnny" + '|' + "00000043" + '|' + "00000312" + '|' + "00003432", l.getBlockChain());
 	}
+
 }
