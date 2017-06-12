@@ -13,12 +13,12 @@ import org.junit.*;
 *
 *	Method				# of tests		Status
 *	createBlock()		3 ?				In Progress
-*	getBlockChain()		2 ?				In Progress
+*	getBlockChain()		2 ?				In Progress	(Could use some help with this one.  Not sure what other corner cases to test)
 *	hash()				3				Done
 *	validHash			3				Done
 *	
-*	Total				11
-*	Needed				1
+*	Total				11 ?
+*	Needed				1	
 */
 public class LaboonCoinTest {
 
@@ -30,15 +30,21 @@ public class LaboonCoinTest {
 		l = new LaboonCoin();		
 	}
 	
-    	//	Assert that creating a new LaboonCoin instance
-    	//	does not return a null reference
+    //	Assert that creating a new LaboonCoin instance
+    //	does not return a null reference
     @Test
     public void testLaboonCoinExists() {
 		assertNotNull(l);	
 	}
     
-	//	Assert that the program does not crash when
-	//	asked to print an empty blockchain
+	//	Asserts that the blockchain has been initialized
+	@Test
+	public void testBlockChainExists(){
+		assertNotNull(l.blockchain);
+	}
+	
+	//	Test that the program is capable of
+	//	outputting empty blockchain
 	@Test
 	public void testEmptyPrint(){
 		assertEquals(l.getBlockChain(), "");
@@ -59,7 +65,7 @@ public class LaboonCoinTest {
 		assertEquals(l.hash(""), 10000000);
 	}
 	
-	//	Tests corner case of very long hash
+	//	Tests corner case of a very long hash
 	@Test
 	public void testLongHash(){
 		assertEquals(l.hash("Did you ever hear the tragedy of Darth Plagueis the wise"), -1751869620);
