@@ -2,6 +2,12 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+/*
+*	JUST AS A NOTE:
+*	Please try to make tests as localized as possible through the use of
+*	doubles/stubs if necessary.
+*
+*/
 public class LaboonCoinTest {
 
 	//	Creates an instance of LaboonCoin
