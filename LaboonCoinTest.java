@@ -101,22 +101,22 @@ public class LaboonCoinTest {
 		assertEquals("Johnny gave Ustes $50" + '\n' + "Krombopulos gave Michael $1000" + '\n'  + "Jimmy gave Pitt $30000" + '\n', l.getBlockChain());
 	}
 
-	//	Tests if hash has appropriate singular zero pad
+	//	Tests if createBlock() returns data with appropriate singular zero pad
 	@Test
 	public void testSingleZeroPad(){
 		assertEquals("Johnny" + '|' + "0af53ccb" + '|' + "0bcf41ab" + '|' + "041a4f2b", l.createBlock("Johnny", 183844043, 198132139, 68833067));
 	}
 	
-	//	Tests if hash has appropriate double zero pad
+	//	Tests happy path with no zero pads
 	@Test
-	public void testDoubleZeroPad(){
-		assertEquals("Johnny" + '|' + "0043243"  + '|' + "0012312" + '|' + "00423432", l.createBlock("Johnny", 43243, 12312, 23432));
+	public void testHappyBlock(){
+		assertEquals("Johnny" + '|' + "ffab13f9"  + '|' + "32f4ab9e" + '|' + "a3ff8ce4", l.createBlock("Johnny", (int)4289401849L, 854895518, (int)2751433956L));
 	}
 	
-	//Tests if hash has 3 or more zero pads in the front
+	//	Tests if createBlock() returns data with 2 or more zero pads in the front when necessary
 	@Test
 	public void testMultZeroPad(){
-		assertEquals("Johnny" + '|' + "00000043" + '|' + "00000312" + '|' + "00003432", l.createBlock("Johnny", 43, 312, 3432));
+		assertEquals("Johnny" + '|' + "000000ab" + '|' + "00000f32" + '|' + "00ff3432", l.createBlock("Johnny", 171, 3890, 16725042));
 	}
 
 }
