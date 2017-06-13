@@ -2,26 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-/*
-*	JUST SOME NOTES:
-*
-*	I submitted the link via email.
-*
-*	Also, ideally, each test should test exactly one method.
-*	Each method needs at least 3 tests
-*	I accidently wrote one for mine(). Im just gonna leave it at this point.
-*
-*	Heres what we have so far:
-*
-*	Method				# of tests		Status
-*	createBlock()		3 ?				In Progress
-*	getBlockChain()		2 ?				In Progress	(Could use some help with this one.  Not sure what other corner cases to test)
-*	hash()				3				Done
-*	validHash			3				Done
-*	
-*	Total				11 ?
-*	Needed				1	
-*/
+
 public class LaboonCoinTest {
 
 	//	Creates an instance of LaboonCoin
@@ -119,39 +100,23 @@ public class LaboonCoinTest {
 		l.blockchain.add("Jimmy gave Pitt $30000");
 		assertEquals("Johnny gave Ustes $50" + '\n' + "Krombopulos gave Michael $1000" + '\n'  + "Jimmy gave Pitt $30000" + '\n', l.getBlockChain());
 	}
-	
-	/*
-	*	I have changed the following methods to @ignore so that i can start testing
-	*	When you finish writing them please just change them back to @test
-	*/
-	
-	//	Tests if hash has zero 0 in front, if so invalid
-	@Ignore("In Progress")
+
+	//	Tests if hash has appropriate singular zero pad
 	@Test
-	public void testInvalidZero(){
-		
-		l.createBlock("Johnny", 343243, 212312, 423432);
-		l.getBlockChain();
-		assertEquals("Johnny" + '|' + "0343243" + '|' + "0212312" + '|' + "0413432", l.getBlockChain());
+	public void testSingleZeroPad(){
+		assertEquals("Johnny" + '|' + "0af53ccb" + '|' + "0bcf41ab" + '|' + "041a4f2b", l.createBlock("Johnny", 183844043, 198132139, 68833067));
 	}
 	
-	//Tests if hash has 1 0 in front, if so invalid 
-	//padding two 0s
+	//	Tests if hash has appropriate double zero pad
 	@Test
-	public void testInvalidMultZeros(){
-		l.createBlock("Johnny", 43243, 12312, 23432);
-		l.getBlockChain();
-		assertEquals("Johnny" + '|' + "0043243"  + '|' + "0012312" + '|' + "00423432", l.getBlockChain());
+	public void testDoubleZeroPad(){
+		assertEquals("Johnny" + '|' + "0043243"  + '|' + "0012312" + '|' + "00423432", l.createBlock("Johnny", 43243, 12312, 23432));
 	}
 	
-	//Tests if hash has 3 or more in front, if so valid
-	//padding multiple 0s
+	//Tests if hash has 3 or more zero pads in the front
 	@Test
-	public void testValidZeros(){
-		
-		l.createBlock("Johnny", 43, 312, 3432);
-		l.getBlockChain();
-		assertEquals("Johnny" + '|' + "00000043" + '|' + "00000312" + '|' + "00003432", l.getBlockChain());
+	public void testMultZeroPad(){
+		assertEquals("Johnny" + '|' + "00000043" + '|' + "00000312" + '|' + "00003432", l.createBlock("Johnny", 43, 312, 3432));
 	}
 
 }
