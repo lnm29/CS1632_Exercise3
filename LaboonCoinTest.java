@@ -5,32 +5,57 @@ import org.junit.*;
 
 public class LaboonCoinTest {
 
-	//	Creates an instance of LaboonCoin
-	//	prior to each test
+	//	Creates an instance of LaboonCoin prior to each test
 	LaboonCoin l = null;
 	@Before
 	public void init(){
 		l = new LaboonCoin();		
 	}
 	
-    //	Assert that creating a new LaboonCoin instance
-    //	does not return a null reference
+    //	Assert that creating a new LaboonCoin instance does not return a null reference
     @Test
     public void testLaboonCoinExists() {
 		assertNotNull(l);	
 	}
     
+	//	Tests happy path with no zero pads
+	@Test
+	public void testHappyBlock(){
+		assertEquals("Johnny" + '|' + "ffab13f9"  + '|' + "32f4ab9e" + '|' + "a3ff8ce4", l.createBlock("Johnny", (int)4289401849L, 854895518, (int)2751433956L));
+	}
+	
+	//	Tests if createBlock() returns data with appropriate singular zero pad
+	@Test
+	public void testSingleZeroPad(){
+		assertEquals("Johnny" + '|' + "0af53ccb" + '|' + "0bcf41ab" + '|' + "041a4f2b", l.createBlock("Johnny", 183844043, 198132139, 68833067));
+	}
+	
+	//	Tests if createBlock() returns data with 2 or more zero pads in the front when necessary
+	@Test
+	public void testMultZeroPad(){
+		assertEquals("Johnny" + '|' + "000000ab" + '|' + "00000f32" + '|' + "00ff3432", l.createBlock("Johnny", 171, 3890, 16725042));
+	}
+	
 	//	Asserts that the blockchain has been initialized
+	//	necessary for tests of getBlockChain()
 	@Test
 	public void testBlockChainExists(){
 		assertNotNull(l.blockchain);
 	}
 	
-	//	Test that the program is capable of
-	//	outputting empty blockchain
+	//	Test that the program is capable of outputting an empty blockchain
 	@Test
 	public void testEmptyPrint(){
 		assertEquals(l.getBlockChain(), "");
+	}
+	
+	//	Tests the happy path of a nonempty blockchain
+	@Test
+	public void testHappyBlockPrint(){
+		l.blockchain.add("Johnny gave Ustes $50");
+		l.blockchain.add("Krombopulos gave Michael $1000");
+		l.blockchain.add("Jimmy gave Pitt $30000");
+		assertEquals("Johnny gave Ustes $50" + '\n' + "Krombopulos gave Michael $1000" + '\n'  + "Jimmy gave Pitt $30000" + '\n', l.getBlockChain());
 	}
 	
 	//	Tests the happy path of the hash function
@@ -40,8 +65,7 @@ public class LaboonCoinTest {
 		assertEquals(l.hash("quock"), 2034739681);
 	}
 	
-	//	Tests corner case of empty hash
-	//	to ensure initial hash value
+	//	Tests corner case of empty hash to ensure initial hash value
 	//	remains unchanged
 	@Test
 	public void testEmptyHash(){
@@ -91,32 +115,4 @@ public class LaboonCoinTest {
 		assertEquals(l.mine("quock", 1005884, 3), 553);
 		assertEquals(l.mine("mars", 589727, 3), 1299);
 	}
-	
-	//	Tests the happy path of a nonempty blockchain
-	@Test
-	public void testHappyBlockPrint(){
-		l.blockchain.add("Johnny gave Ustes $50");
-		l.blockchain.add("Krombopulos gave Michael $1000");
-		l.blockchain.add("Jimmy gave Pitt $30000");
-		assertEquals("Johnny gave Ustes $50" + '\n' + "Krombopulos gave Michael $1000" + '\n'  + "Jimmy gave Pitt $30000" + '\n', l.getBlockChain());
-	}
-
-	//	Tests if createBlock() returns data with appropriate singular zero pad
-	@Test
-	public void testSingleZeroPad(){
-		assertEquals("Johnny" + '|' + "0af53ccb" + '|' + "0bcf41ab" + '|' + "041a4f2b", l.createBlock("Johnny", 183844043, 198132139, 68833067));
-	}
-	
-	//	Tests happy path with no zero pads
-	@Test
-	public void testHappyBlock(){
-		assertEquals("Johnny" + '|' + "ffab13f9"  + '|' + "32f4ab9e" + '|' + "a3ff8ce4", l.createBlock("Johnny", (int)4289401849L, 854895518, (int)2751433956L));
-	}
-	
-	//	Tests if createBlock() returns data with 2 or more zero pads in the front when necessary
-	@Test
-	public void testMultZeroPad(){
-		assertEquals("Johnny" + '|' + "000000ab" + '|' + "00000f32" + '|' + "00ff3432", l.createBlock("Johnny", 171, 3890, 16725042));
-	}
-
 }
